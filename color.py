@@ -9,7 +9,7 @@ def banner():
          __/ |                                              
         |___/                                                                           
     """) + "(" +
-            Colour.blue("v1.0.0") + ")" +
+            Colour.blue("v1.1.0") + ")" +
             "\n")
 
 
